@@ -1,0 +1,9 @@
+.common__section {
+  background: linear-gradient(#5c42126f, #45372188),
+    url("../Components/Categories/background2.jpg");
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 80px 0px;
+}
