@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL:"http://localhost:3000/api"
+    baseURL:"https://don-api.onrender.com/api/"
 })
-//baseURL:"https://don-menu.onrender.com/api/"
+//baseURL:"https://don-menu.onrender.com/api/" "http://localhost:3000/api"
