@@ -13,6 +13,7 @@ return (
   <>
 <Menu/>
 <Routes>
+<Route path="/" exact element={<Listcategories/>}/>
 <Route path="/articles" exact element={<Listarticles/>}/>
 <Route path="/articles/add" element={<Insertarticle/>}/>
 <Route path="/article/edit/:id" element={<Editarticle/>}/>

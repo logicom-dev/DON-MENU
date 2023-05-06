@@ -3,7 +3,6 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/joy/Divider';
 import AspectRatio from '@mui/joy/AspectRatio';
-import image from "./article2.jpg";
 import { useState} from 'react';
 import Modal from '../Modal';
 /* import CardActions from '@mui/material/CardActions';
@@ -30,8 +29,8 @@ const Menu = ({ items }) => {
   const [model, setModel] = useState(false);
   const [tempData, setTempdata] = useState([]);
 
-  const getData = (prix1, LibArt, Descrip) => {
-    let tempData = [prix1, LibArt, Descrip];
+  const getData = (prix1, LibArt, Descrip, image_web) => {
+    let tempData = [prix1, LibArt, Descrip, image_web];
     setTempdata(item => [1, ...tempData]);
     console.warn(tempData);
     return setModel(true);
@@ -40,7 +39,7 @@ const Menu = ({ items }) => {
   return (
     <div className="display">
       {items.map((item) => {
-        const { CodeArt, LibArt, imagepath, prix1, Descrip } = item;
+        const { CodeArt, LibArt, image_web, prix1, Descrip } = item;
 
         return (
 
@@ -61,8 +60,8 @@ const Menu = ({ items }) => {
                   <img
                     border-radius='10px'
                     radius={10}
-                    src={image}
-                    srcSet={imagepath}
+                    src={image_web}
+                    srcSet={image_web}
                     loading="lazy"
                     alt=""
                   />
@@ -80,7 +79,7 @@ const Menu = ({ items }) => {
                     variant="outlined">
                     {prix1} dt
                   </Typography>
-                  <button className="btn btn-primary" onClick={() => getData(prix1, LibArt, Descrip)}>
+                  <button className="btn btn-primary" onClick={() => getData(prix1, LibArt, Descrip,image_web)}>
                     Details
                   </button>
 
@@ -99,7 +98,7 @@ const Menu = ({ items }) => {
         );
       })}
        {
-        model === true ? <Modal prix1={tempData[1]} LibArt={tempData[2]} Descrip={tempData[3]} hide={() => setModel(false)} /> : ''
+        model === true ? <Modal prix1={tempData[1]} LibArt={tempData[2]} Descrip={tempData[3]} image_web={tempData[4]}hide={() => setModel(false)} /> : ''
       }
     </div>
   );

@@ -30,7 +30,7 @@ const AfficheCategories = () => {
           options: {
               customBodyRender: (Image) => (
                   <img
-                      src={`${Image}`} width={140} height={100}
+                      src={`${Image}`} width={170} height={120}
                       alt="" />
               )
           }
@@ -66,8 +66,8 @@ const AfficheCategories = () => {
                 data={categories}
                 columns={columns}
                 options={{
-                    rowsPerPage: 250,
-                    rowsPerPageOptions: [220, 250]}}
+                    rowsPerPage: 400,
+                    rowsPerPageOptions: [220, 250, 400]}}
                     ref={tableRef}
             />
         }

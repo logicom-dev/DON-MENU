@@ -5,7 +5,6 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/joy/Divider';
 import AspectRatio from '@mui/joy/AspectRatio';
-import image from "./article3.jpg"
 import MultiRangeSlider from "multi-range-slider-react";
 import CommonSection from '../Components/UI/common-section/CommonSection';
 import 'react-lightbox-component/build/css/index.css';
@@ -15,8 +14,8 @@ const SearchBarSection = () => {
 
   const [model, setModel] = useState(false);
   const [tempData, setTempdata] = useState([]);
-  const getData = (prix1, LibArt, Descrip) => {
-    let tempData = [prix1, LibArt, Descrip];
+  const getData = (prix1, LibArt, Descrip, image_web) => {
+    let tempData = [prix1, LibArt, Descrip, image_web];
     setTempdata(item => [1, ...tempData]);
     console.warn(tempData);
     return setModel(true);
@@ -64,7 +63,7 @@ const SearchBarSection = () => {
 
   return (
     <div>
-      <CommonSection title="Tous nos produits" />
+      <CommonSection />
       <div className="searchBarSection" >
         <div class="searchBar">
           <input
@@ -110,11 +109,11 @@ const SearchBarSection = () => {
             label={false}
             ruler={false}
             style={{ border: "none", boxShadow: "none", padding: "15px 10px" }}
-            barLeftColor="grey"
-            barInnerColor="yellow"
+            barLeftColor="#d3f032 "
+            barInnerColor="#d3f032"
             barRightColor="grey"
-            thumbLeftColor="yellow"
-            thumbRightColor="yellow"
+            thumbLeftColor="#d3f032"
+            thumbRightColor="#d3f032"
           />
           <div className="divOutput" style={{ border: "none", paddingRight: "10px", width: "200px" }}>
             <div>Prix entre </div>
@@ -144,8 +143,8 @@ const SearchBarSection = () => {
 
                   <AspectRatio ratio="1" sx={{ width: 90 }}>
                     <img
-                      src={image}
-                      srcSet={image}
+                      src={product.image_web}
+                      srcSet={product.image_web}
                       loading="lazy"
                       alt=""
                     />
@@ -163,7 +162,7 @@ const SearchBarSection = () => {
                       variant="outlined">
                       {product.prix1} dt
                     </Typography>
-                    <button className="btn btn-primary" onClick={() => getData(product.prix1, product.LibArt, product.Descrip)}>
+                    <button className="btn btn-primary" onClick={() => getData(product.prix1, product.LibArt, product.Descrip, product.image_web)}>
                     Details
                   </button>
 
@@ -185,7 +184,7 @@ const SearchBarSection = () => {
         </div>
       </div>
       {
-        model === true ? <Modal prix1={tempData[1]} LibArt={tempData[2]} Descrip={tempData[3]} hide={() => setModel(false)} /> : ''
+        model === true ? <Modal prix1={tempData[1]} LibArt={tempData[2]} Descrip={tempData[3]} image_web={tempData[4]} hide={() => setModel(false)} /> : ''
       }
     </div>
   );

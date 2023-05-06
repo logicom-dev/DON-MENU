@@ -27,8 +27,8 @@ export default class Modal extends Component {
                                     <CardOverflow>
                                         <AspectRatio ratio="2">
                                             <img
-                                                src={image}
-                                                srcSet={image}
+                                                src={this.props.image_web}
+                                                srcSet={this.props.image_web}
                                                 loading="lazy"
                                                 alt=""
                                             />
@@ -59,7 +59,7 @@ export default class Modal extends Component {
 
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-primary">Ajouter au panier</button>
+                               {/*  <button type="button" className="btn btn-primary">Ajouter au panier</button> */}
                             </div>
                         </div>
                     </div>

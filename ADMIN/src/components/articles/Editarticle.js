@@ -7,6 +7,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import { useDispatch } from "react-redux";
+import { UploadFirebase } from '../../Utils/UploadFirebase';
 import { updateArticle, getArticles } from "../../features/articleSlice"
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
@@ -27,8 +28,11 @@ const Editarticle = ({ art }) => {
     const [prix1, setprix1] = useState(art.prix1);
     const [Descrip, setDescrip] = useState(art.Descrip);
     const [CodeCat, setCodeCat] = useState(art.CodeCat);
-    const [files, setFiles] = useState(art.imagepath);
+    const [image_web, setImage_web] = useState("");
+    const [files, setFiles] = useState("");
     const dispatch = useDispatch();
+
+    /* // Dans le cas de Multer
     function isFile(obj) {
         return obj.constructor === File;
     }
@@ -43,40 +47,93 @@ const Editarticle = ({ art }) => {
         const file = formData.get('file');
       
         return file;
-      }
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const form = event.currentTarget;
-        if (form.checkValidity() === true) {
-            const article = {
+      } */
 
-                LibArt: LibArt,
-                CodeArt: CodeArt,
-                prix1: prix1,
-                Descrip: Descrip,
-                CodeCat: CodeCat,
-                imagepath: files[0].file
-
-            }
-            console.log(article.imagepath);
-
-            if (isFile(article.imagepath)) {
-                console.log('It is a File no need to change')
-                console.log(files[0].file.name)
-            }
-            else {
-                console.log('It is a Blob, change it to a File')
-                article.imagepath = blobToFile(files[0].file, files[0].file.name);
-            }
-
-
-            console.log(article.imagepath);
-            const formData = new FormData();
-            buildFormData(formData, article);
-            await dispatch(updateArticle(formData))
-
-            dispatch(getArticles());
+    const handleUpload = (event) => {
+        if (!files[0].file) {
+            alert("Please upload an image first!");
+            console.log("Please upload an image first!")
         }
+        console.log(files[0].file)
+        resultHandleUpload(files[0].file, event);
+
+    };
+
+    const resultHandleUpload = async (image, event) => {
+
+
+        try {
+
+            await UploadFirebase(image).then((url) => {
+                console.log(url);
+
+                handleSubmit(event, url);
+            })
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+    const handleSubmit = async (event, url) => {
+        event.preventDefault();
+        setFiles(url);
+        const article = {
+
+            LibArt: LibArt,
+            CodeArt: CodeArt,
+            prix1: prix1,
+            Descrip: Descrip,
+            CodeCat: CodeCat,
+            image_web: url
+
+        }
+        console.log(article.image_web);
+        if (article.image_web === undefined) {
+            console.log("the article image is undefined")
+            console.log(art.image_web)
+            setFiles(art.image_web)
+            setImage_web(art.image_web)
+            article.image_web = art.image_web
+        }
+
+        else {
+            console.log("Vous avez changer l'image de votre article")
+            console.log(article.image_web)
+            setFiles(article.image_web)
+
+        }
+
+        /*  if (isFile(article.imagepath)) {
+             console.log('It is a File no need to change')
+             console.log(files[0].file.name)
+         }
+         else {
+             console.log('It is a Blob, change it to a File')
+             article.imagepath = blobToFile(files[0].file, files[0].file.name);
+         } */
+
+
+        console.log(article.image_web);
+        const formData = new FormData();
+        buildFormData(formData, article);
+        await dispatch(updateArticle(formData))
+            .then(res => {
+                console.log("edit OK", res);
+                setShow(false);
+                setLibArt("");
+                setprix1("");
+                setDescrip("");
+                setCodeCat("");
+                setFiles("");
+                setImage_web("");
+                setValidated(false);
+            })
+
+
+
+        await dispatch(getArticles());
+
         setValidated(true);
 
 
@@ -146,16 +203,29 @@ const Editarticle = ({ art }) => {
                                         </Form.Group>
                                     </Row>
                                     <Row className="mb-3">
+                                        <Form.Group as={Col} md="6">
+
+                                            
+                                            <img
+                                            src={`${art.image_web}`} width={150} height={150}
+                                            alt="" />
+                                        
+                                       
+
+                                            
+                                        </Form.Group>
 
                                         <Form.Group as={Col} md="6">
-                                            <Form.Label>Image</Form.Label>
+
+                                            <Form.Label>changer l'image de l'article</Form.Label>
+                                                
+
                                             <FilePond
                                                 type="file"
                                                 files={files}
                                                 allowMultiple={false}
                                                 onupdatefiles={setFiles}
-                                                labelIdle='<span class="filepond--label-action">Browse
-One</span>'
+                                                labelIdle='<span class="filepond--label-action"> Cliquer ici pour télécharger une nouvelle image</span>'
                                             />
 
                                         </Form.Group>
@@ -168,7 +238,7 @@ One</span>'
                         <Button variant="secondary" onClick={handleClose}>
                             Fermer
                         </Button>
-                        <Button type="submit">Enregistrer</Button>
+                        <Button variant="primary" type="submit" onClick={(event) => handleUpload(event)}>Modifier</Button>
                     </Modal.Footer>
                 </Form>
             </Modal>
