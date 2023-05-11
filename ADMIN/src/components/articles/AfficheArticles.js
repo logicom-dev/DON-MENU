@@ -80,8 +80,8 @@ const AfficheArticles = () => {
                     data={articles}
                     columns={columns}
                     options={{
-                        rowsPerPage: 400,
-                        rowsPerPageOptions: [220, 250, 400]}}
+                        rowsPerPage: 250,
+                        rowsPerPageOptions: [220, 250]}}
                         ref={tableRef}
                 />
             }

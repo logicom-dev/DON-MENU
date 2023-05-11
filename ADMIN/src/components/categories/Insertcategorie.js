@@ -18,7 +18,7 @@ const Insertcategorie = () => {
     const handleShow = () => setShow(true);
     const [nomcategorie, setNomcategorie] = useState("");
     const [codecategorie, setCodecategorie] = useState("");
-    const [Image ,setImage] = useState("");
+    const [Image, setImage] = useState("");
     const [files, setFiles] = useState("")
     const [validated, setValidated] = useState(false);
     const dispatch = useDispatch();

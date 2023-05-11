@@ -1,8 +1,10 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
+import storage from "../../firebaseConfig";
+import { ref } from "firebase/storage";
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import { useDispatch } from "react-redux";
 import { updateCategorie, getCategories } from '../../features/categorieSlice';
@@ -22,10 +24,10 @@ const Editcategorie = ({ cat }) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [validated, setValidated] = useState(false);
-    const [CodeCat] = useState(cat.CodeCat);
+    const [CodeCat, setCodeCat] = useState(cat.CodeCat);
     const [DesCat, setDesCat] = useState(cat.DesCat);
     const [files, setFiles] = useState("");
-    const [Image ,setImage] = useState("");
+    const [Image, setImage] = useState("");
 
 
     /*  useEffect(() => {

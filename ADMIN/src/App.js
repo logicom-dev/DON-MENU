@@ -1,4 +1,4 @@
-import {Routes,Route,BrowserRouter} from "react-router-dom"
+import {Routes,Route} from "react-router-dom"
 import Listarticles from './components/articles/Listarticles';
 import Insertarticle from './components/articles/Insertarticle';
 import Editarticle from './components/articles/Editarticle';
@@ -11,19 +11,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 return (
   <>
-   <BrowserRouter >
 <Menu/>
 <Routes>
-<Route path="/" exact element={<Listcategories/>}/>
-<Route path="/categories/add" element={<Insertcategorie/>}/>
-<Route path="/categories/edit/:id" element={<Editcategorie/>}/>
-
+<Route path="/" exact element={<Listcategories/>}/> 
 <Route path="/articles" exact element={<Listarticles/>}/>
 <Route path="/articles/add" element={<Insertarticle/>}/>
 <Route path="/article/edit/:id" element={<Editarticle/>}/>
+<Route path="/categories/add" element={<Insertcategorie/>}/>
+<Route path="/categories/edit/:id" element={<Editcategorie/>}/>
 
 </Routes>
-</BrowserRouter>
 </>
 );
 }
