@@ -13,7 +13,7 @@ export default function Navbarre() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/Articlesearch" >Nos Articles</Nav.Link>
-            <Nav.Link as={Link} to="/Categoriesearch" >Nos Categories</Nav.Link>
+            <Nav.Link as={Link} to="/" >Nos Categories</Nav.Link>
           </Nav>
           {/* <Link
                 to="/cart"

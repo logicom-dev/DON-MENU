@@ -6,9 +6,8 @@ const Menu = () => {
     return (
         <Navbar bg="primary" variant="dark">
             <Container>
-                <Navbar.Brand >Gestion Commerciale</Navbar.Brand>
-                <Nav className="me-auto">
-                    <Nav.Link as={Link} to="/categories">Catégories</Nav.Link>
+               <Nav className="me-auto">
+                    <Nav.Link as={Link} to="/">Catégories</Nav.Link>
                     <Nav.Link as={Link} to="/articles">Liste des Articles</Nav.Link>
                 </Nav>
             </Container>

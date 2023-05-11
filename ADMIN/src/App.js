@@ -15,12 +15,12 @@ return (
 <Menu/>
 <Routes>
 <Route path="/" exact element={<Listcategories/>}/>
+<Route path="/categories/add" element={<Insertcategorie/>}/>
+<Route path="/categories/edit/:id" element={<Editcategorie/>}/>
+
 <Route path="/articles" exact element={<Listarticles/>}/>
 <Route path="/articles/add" element={<Insertarticle/>}/>
 <Route path="/article/edit/:id" element={<Editarticle/>}/>
-<Route path="/categories" exact element={<Listcategories/>}/>
-<Route path="/categories/add" element={<Insertcategorie/>}/>
-<Route path="/categories/edit/:id" element={<Editcategorie/>}/>
 
 </Routes>
 </BrowserRouter>

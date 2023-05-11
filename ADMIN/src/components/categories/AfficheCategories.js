@@ -57,7 +57,7 @@ const AfficheCategories = () => {
   ];
   const renderCategories = () => {
     if (isLoading) return <center><ReactLoading type='spokes' color="red"
-        height={'5%'} width={'2%'} /></center>
+        height={'1%'} width={'1%'} /></center>
     if (error) return <p>Impossible d'afficher la liste des categories...</p>
     return <React.Fragment>
         {categories &&

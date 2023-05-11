@@ -33,7 +33,7 @@ function App() {
 
     
     <Routes>
-    <Route path="/" element={<Navigate to="/Categoriesearch" />}></Route>  
+    <Route path="/" element={<Categorie/>}></Route>  
     
    
     <Route path="/ArticleList"  element={<ArticleList/>}/>
