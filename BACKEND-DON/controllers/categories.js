@@ -1,6 +1,6 @@
 //const { categorie } = require('../models');
 //const firebase = require('firebase-admin');
-const db = require('../models')
+const db = require('../models/categorie')
 //Categorie = db.categorie
 const fs = require('fs');
 /* const config = {
@@ -31,6 +31,16 @@ const path =require('path')
 
 
 const getCategories = async (req, res) => {
+    try {
+        const cat = await db.sequelize.query(`select CodeCat, DesCat, visible_web, Image from categorie`);
+      
+        res.status(200).json(cat[0]);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+const getCategories2 = async (req, res) => {
     try {
         const cat = await db.sequelize.query(`select CodeCat, DesCat, visible_web, Image from categorie where visible_web = "1"`);
       
@@ -86,6 +96,7 @@ const updateCategorie = async (req, res) => {
     const CodeCat = req.body.CodeCat;
     const DesCat = req.body.DesCat;
     const Image = req.body.Image;
+    const visible_web = req.body.visible_web;
     /* const url = req.protocol + '://' + req.get('host')
     const Image = url + '/public/' + req.file.filename;
     const path = Image; */
@@ -98,7 +109,7 @@ const updateCategorie = async (req, res) => {
        }); */
     try {
 
-        const cat = await db.sequelize.query(`UPDATE categorie SET DesCat = "${DesCat}", CodeCat = "${CodeCat}", Image ="${Image}"  WHERE  CodeCat = "${CodeCat}"`);
+        const cat = await db.sequelize.query(`UPDATE categorie SET DesCat = "${DesCat}", CodeCat = "${CodeCat}", Image ="${Image}",visible_web ="${visible_web}" WHERE  CodeCat = "${CodeCat}"`);
         console.log(cat)
         res.json({ message: "category updated successfully!" });
     } catch (error) {
@@ -122,6 +133,7 @@ const deleteCategorie = async (req, res) => {
 
 module.exports = {
     createCategorie,
+    getCategories2,
     updateCategorie,
     deleteCategorie,
     deleteCategorie2,

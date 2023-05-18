@@ -1,11 +1,21 @@
-const { article } = require('../models');
-const db = require("../models");
+const { article } = require('../models/article');
+const db = require("../models/article");
 const Article = db.article;
 
 
 const getArticles = async (req, res) => {
     try {
-        const art = await db.sequelize.query(`select CodeArt, LibArt, Descrip, CodeCat, prix1, image_web from article WHERE  visible_web = "1"`);
+        const art = await db.sequelize.query(`select CodeArt, LibArt, Descrip, CodeCat, prix1, image_web, visible_web from article `);
+
+        res.status(200).json(art[0]);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+const getArticles2 = async (req, res) => {
+    try {
+        const art = await db.sequelize.query(`select CodeArt, LibArt, Descrip, CodeCat, prix1, image_web, visible_web from article WHERE  visible_web = "1"`);
 
         res.status(200).json(art[0]);
     } catch (error) {
@@ -57,12 +67,13 @@ const updateArticle = async (req, res) => {
     const LibArt = req.body.LibArt;
     const prix1 = req.body.prix1;
     const image_web = req.body.image_web;
+    const visible_web = req.body.visible_web;
     /* const url = req.protocol + '://' + req.get('host')
     const imagepath = url + '/public/' + req.file.filename; */
 
     try {
 
-        const cat = await db.sequelize.query(`UPDATE article SET Descrip ="${Descrip}", LibArt = "${LibArt}", prix1 ="${prix1}", CodeCat = "${CodeCat}", image_web = "${image_web}" WHERE  CodeArt = "${CodeArt}"`);
+        const cat = await db.sequelize.query(`UPDATE article SET Descrip ="${Descrip}", LibArt = "${LibArt}", prix1 ="${prix1}", CodeCat = "${CodeCat}", image_web = "${image_web}", visible_web = "${visible_web}"  WHERE  CodeArt = "${CodeArt}"`);
         console.log(cat)
         res.json({ message: "article updated successfully!" });
     } catch (error) {
@@ -96,6 +107,7 @@ const deleteArticle2 = async (req, res) => {
 }
 module.exports = {
     getArticles,
+    getArticles2,
     getArticleByID,
     updateArticle,
     deleteArticle,
