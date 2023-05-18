@@ -30,7 +30,7 @@ const Insertarticle = () => {
     const [Descrip, setDescrip] = useState("");
     const [CodeCat, setCodeCat] = useState("");
     const [files, setFiles] = useState("");
-    const [image_web,setImage_web] = useState("");
+    const [image_web, setImage_web] = useState("");
     const [validated, setValidated] = useState(false);
     const dispatch = useDispatch();
 
