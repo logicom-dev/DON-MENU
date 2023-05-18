@@ -1,13 +1,12 @@
 const express= require('express');
 
-const {getCategories,getCategories2, createCategorie, deleteCategorie, updateCategorie, GetCategorieById, deleteCategorie2} =require('../controllers/categories');
+const {getCategories,createCategorie, deleteCategorie, updateCategorie, GetCategorieById, deleteCategorie2,getCategories2} =require('../controllers/categories');
 const {uploadImg} =require("../middleware/multer")
 
 const router = express.Router();
 
-router.get('/categories',getCategories2);
-
 router.get('/',getCategories);
+router.get('/categorie',getCategories2);
 
 router.post('/', uploadImg.single("Image"),createCategorie);
 

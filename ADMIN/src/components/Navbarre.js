@@ -6,11 +6,20 @@ const Menu = () => {
     return (
         <Navbar bg="primary" variant="dark">
             <Container>
-                <Nav className="me-auto">
+               <Nav className="me-auto">
                     <Nav.Link as={Link} to="/">Catégories</Nav.Link>
-                    <Nav.Link as={Link} to="/articles">Articles</Nav.Link>
+                    <Nav.Link as={Link} to="/articles">Liste des Articles</Nav.Link>
                 </Nav>
             </Container>
+            <Form className="d-flex">
+                {/* <FormControl
+type="search"
+placeholder="Search"
+className="me-2"
+aria-label="Search"
+/>
+<Button variant="success">Chercher</Button> */}
+            </Form>
         </Navbar>
     )
 }

@@ -38,10 +38,6 @@ const AfficheArticles = () => {
             name: "CodeCat"
         },
         {
-            label: "visible dans menu",
-            name: "visible_web"
-        },
-        {
             label: "image_web",
             name: "image_web",
             options: {
@@ -84,10 +80,9 @@ const AfficheArticles = () => {
                     data={articles}
                     columns={columns}
                     options={{
-                        rowsPerPage: 600,
-                        rowsPerPageOptions: [ 600, 700, 800]
-                    }}
-                    ref={tableRef}
+                        rowsPerPage: 250,
+                        rowsPerPageOptions: [220, 250]}}
+                        ref={tableRef}
                 />
             }
         </React.Fragment>
