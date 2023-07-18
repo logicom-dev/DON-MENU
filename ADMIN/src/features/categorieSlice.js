@@ -86,7 +86,7 @@ export const categorieSlice = createSlice({
                 state.isLoading = false;
                 state.error = null;
                 state.categories = action.payload;
-        
+
             })
             .addCase(getCategories.rejected, (state, action) => {
                 state.isLoading = false;
@@ -151,5 +151,5 @@ export const categorieSlice = createSlice({
                 })
     }
 }
-)   
+)
 export default categorieSlice.reducer;

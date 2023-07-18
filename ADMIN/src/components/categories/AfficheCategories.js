@@ -1,13 +1,35 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState , useEffect } from 'react';
 import MUIDataTable from "mui-datatables";
 import ReactLoading from 'react-loading';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCategorie } from "../../features/categorieSlice";
 import Insertcategorie from "./Insertcategorie";
+import { fetchCategorieById } from '../../services/CategorieService';
 import Editcategorie from "./Editcategorie";
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import { getCategories } from '../../features/categorieSlice'
+
 const AfficheCategories = () => {
+    const [categorie, setcategorie] = useState([]);
+    const [getpermission, setGetpermission] = useState(true);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCategories());
+      }, [dispatch]);
+
+    const handlerFeedback = () => {
+        setGetpermission(false)
+    }
+
+    const handleEdit = (value) => {
+        if(getpermission){
+            fetchCategorieById(value)
+            .then((res) => {
+                setcategorie(res.data);
+            })
+        }
+    };
     const { categories, isLoading, error } = useSelector((state) => state.storecategories);
     const tableRef = useRef(null);
     const handleDelete = (id) => {
@@ -17,16 +39,26 @@ const AfficheCategories = () => {
     }
     const columns = [
         {
-            label: "CodeCat",
+            label: "Code",
             name: "CodeCat",
+            options: {
+                filter: false,
+            }
         },
         {
-            label: "DesCat",
-            name: "DesCat"
+            label: "Désignation",
+            name: "DesCat",
+            options: {
+                filter: false,
+            }
         },
         {
-            label: "visible dans menu",
-            name: "visible_web"
+            label: "Visibilité",
+            name: "visible_web",
+            options: {
+                filter: false,
+            }
+           
         },
 
         {
@@ -37,7 +69,8 @@ const AfficheCategories = () => {
                     <img
                         src={`${Image}`} width={170} height={120}
                         alt="" />
-                )
+                ),
+                filter: false
             }
         },
         {
@@ -46,17 +79,22 @@ const AfficheCategories = () => {
             options: {
                 customBodyRender: (value, tableMeta) => (
                     <div>
-                        <span>
-                            <Editcategorie cat={categories[tableMeta.rowIndex]} />
-                        </span>
-                        <span
-                            onClick={(e) => handleDelete(value)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <DeleteForeverRoundedIcon color='error' />
-                        </span>
-                    </div>
-                )
+                    <span
+                        onClick={(e) => handleEdit(value)}
+                        style={{ cursor: 'pointer' }}
+                    >                   
+                    <Editcategorie handlerFeedback={handlerFeedback} cat={categorie[0]} />
+
+                    </span>
+                    <span
+                        onClick={(e) => handleDelete(value)}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <DeleteForeverRoundedIcon color='error' />
+                    </span>
+                </div>
+                ),
+                filter: false
             }
         }
     ];
@@ -67,12 +105,12 @@ const AfficheCategories = () => {
         return <React.Fragment>
             {categories &&
                 <MUIDataTable
-                    title="Liste categories"
+                    title="Liste des categories"
                     data={categories}
                     columns={columns}
                     options={{
-                        rowsPerPage: 400,
-                        rowsPerPageOptions: [220, 250, 400]
+                        rowsPerPage: 10,
+                        rowsPerPageOptions: [5, 10, 20]
                     }}
                     ref={tableRef}
                 />

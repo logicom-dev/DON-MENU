@@ -18,35 +18,25 @@ const Insertcategorie = () => {
     const handleShow = () => setShow(true);
     const [nomcategorie, setNomcategorie] = useState("");
     const [codecategorie, setCodecategorie] = useState("");
-    const [Image ,setImage] = useState("");
-    const [files, setFiles] = useState("")
-    const [validated, setValidated] = useState(false);
+    const [Image, setImage] = useState("");
+    const [files, setFiles] = useState("");
+    const [Validated, setValidated] = useState(false);
     const dispatch = useDispatch();
-
     const handleUpload = (event) => {
         if (!files[0].file) {
             alert("Please upload an image first!");
         }
-        console.log(files[0].file)
         resultHandleUpload(files[0].file, event);
 
     };
-
     const resultHandleUpload = async (image, event) => {
-
-
         try {
-
             await UploadFirebase(image).then((url) => {
-                console.log(url);
-
                 handleSubmit(event, url);
             })
-
         } catch (error) {
             console.log(error);
         }
-
     }
     const handleSubmit = async (event, url) => {
         event.preventDefault();
@@ -58,10 +48,8 @@ const Insertcategorie = () => {
         }
         const formData = new FormData();
         buildFormData(formData, categorie);
-        console.log(categorie);
         await dispatch(createCategorie(formData))
             .then(res => {
-                console.log("Insert OK", res);
                 setShow(false);
                 setCodecategorie("");
                 setNomcategorie("");
@@ -69,10 +57,8 @@ const Insertcategorie = () => {
                 setFiles("");
                 setValidated(false);
             })
-            await dispatch(getCategories())
-
+        await dispatch(getCategories())
     };
-
     return (
         <>
             <Button variant="success" style={{ 'margin': 10, 'left': 10 }}
@@ -104,9 +90,7 @@ const Insertcategorie = () => {
                                 value={nomcategorie}
                                 onChange={(e) => setNomcategorie(e.target.value)}
                             />
-
                         </Form.Group>
-
                         <Form.Group className="mb-3">
                             <h4>Sélectionner une image</h4>
                             <FilePond
@@ -121,15 +105,12 @@ One</span>'
 
                     </Form>
                 </Modal.Body >
-
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Fermer
                     </Button>
                     <Button variant="primary" type="submit" onClick={(event) => handleUpload(event)}>Ajouter</Button>
-
                 </Modal.Footer>
-
             </Modal >
         </>
     )

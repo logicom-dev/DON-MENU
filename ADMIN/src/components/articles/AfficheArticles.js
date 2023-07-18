@@ -1,13 +1,37 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import MUIDataTable from "mui-datatables";
 import ReactLoading from 'react-loading';
 import { useDispatch, useSelector } from "react-redux"
 import { deleteArticle } from "../../features/articleSlice";
 import Insertarticle from './Insertarticle';
 import Editarticle from "./Editarticle";
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import { fetchArticleById } from '../../services/ArticleService';
 const AfficheArticles = () => {
+    const [article, setArticle] = useState([]);
+    const [editValue, setEditValue] = useState(null);
+    const [getpermission, setGetpermission] = useState(true);
+
+    const handlerFeedback = () => {
+        setGetpermission(false)
+    }
+
+
+    const handleEdit = (value) => {
+      
+        if(getpermission){
+        fetchArticleById(value)
+            .then((res) => {
+                setArticle(res.data);
+                setEditValue(value);
+            })
+        }
+    }
+
+
     const dispatch = useDispatch();
+    const { categories } = useSelector((state) => state.storecategories);
     const { articles, isLoading, error } = useSelector((state) => state.storearticles);
     const tableRef = useRef(null);
     const handleDelete = (id) => {
@@ -15,41 +39,64 @@ const AfficheArticles = () => {
             dispatch(deleteArticle(id));
         }
     }
-
     const columns = [
         {
-            label: "LibArt",
-            name: "LibArt"
+            label: "Désignation",
+            name: "LibArt",
+            options: {
+                filter: false,
+            }
         },
         {
-            label: "CodeArt",
-            name: "CodeArt"
+            label: "Code",
+            name: "CodeArt",
+            options: {
+                filter: false,
+            }
         },
         {
-            label: "Descrip",
-            name: "Descrip"
+            label: "Description",
+            name: "Descrip",
+            options: {
+                filter: false,
+            }
         },
         {
             label: "Prix",
-            name: "prix1"
+            name: "prix1",
+            options: {
+                filter: false,
+            }
         },
         {
-            label: "CodeCat",
-            name: "CodeCat"
+            label: "Catégorie",
+            name: "CodeCat",
+            options: {
+                customBodyRender: (value) => {
+                    const category = categories.find(cat => cat.CodeCat === value);
+                    return category ? category.DesCat : value;
+                }
+            }
         },
         {
-            label: "visible dans menu",
-            name: "visible_web"
+            label: "Visibilité",
+            name: "visible_web",
+            options: {
+                customBodyRender: (value) => {
+                  return value === 1 ? "Visible" : "Non visible";
+                }
+              }
         },
         {
-            label: "image_web",
+            label: "Image",
             name: "image_web",
             options: {
                 customBodyRender: (image_web) => (
                     <img
                         src={`${image_web}`} width={100} height={100}
                         alt="" />
-                )
+                ),
+                filter: false,
             }
         },
         {
@@ -58,8 +105,11 @@ const AfficheArticles = () => {
             options: {
                 customBodyRender: (value, tableMeta) => (
                     <div>
-                        <span>
-                            <Editarticle art={articles[tableMeta.rowIndex]} />
+                        <span
+                            onClick={(e) => handleEdit(value)}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <Editarticle handlerFeedback={handlerFeedback} art={article[0]} />
                         </span>
                         <span
                             onClick={(e) => handleDelete(value)}
@@ -68,11 +118,11 @@ const AfficheArticles = () => {
                             <DeleteForeverRoundedIcon color='error' />
                         </span>
                     </div>
-                )
+                ),
+                filter: false,
             }
         }
     ];
-    // error handling & map successful query data
     const renderArticles = () => {
         if (isLoading) return <center><ReactLoading type='spokes' color="red"
             height={'1%'} width={'1%'} /></center>
@@ -80,12 +130,12 @@ const AfficheArticles = () => {
         return <React.Fragment>
             {articles &&
                 <MUIDataTable
-                    title="Liste articles"
+                    title="Liste des articles"
                     data={articles}
                     columns={columns}
                     options={{
-                        rowsPerPage: 600,
-                        rowsPerPageOptions: [ 600, 700, 800]
+                        rowsPerPage: 10,
+                        rowsPerPageOptions: [5, 10, 20]
                     }}
                     ref={tableRef}
                 />
