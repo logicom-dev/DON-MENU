@@ -70,7 +70,7 @@ const Categorie = () => {
   return (
     <div >
       
-      <CommonSection title="Our menu" />
+      <CommonSection  />
       <main className='The main' >
 
         <section className="menu section">

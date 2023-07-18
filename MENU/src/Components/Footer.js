@@ -2,65 +2,67 @@ import React from 'react';
 import {
   MDBFooter,
   MDBContainer,
-  MDBBtn ,MDBCol
+  MDBBtn, MDBCol
 } from 'mdb-react-ui-kit';
-import { MDBIcon} from 'mdbreact';
+import { MDBIcon } from 'mdbreact';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
 export default function Footer() {
-  
+  const adress = process.env.REACT_APP_ADDRESS
+  const phone = process.env.REACT_APP_PHONE_NUMBER
+  const facebook = process.env.REACT_APP_FACEBOOK
+  const instagram = process.env.REACT_APP_INSTAGRAM
   return (
     <MDBFooter className='bg-light text-center text-white'>
-      
-    <MDBContainer className='p-4 pb-0'>
-      <section className='mb-4'>
-      <MDBCol md="4" lg="3" xl="4" className='mx-auto mb-md-0 mb-4'>
+
+      <MDBContainer className='p-4 pb-0'>
+        <section className='mb-4'>
+          <MDBCol md="4" lg="3" xl="4" className='mx-auto mb-md-0 mb-4'>
             <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
             <p>
               <MDBIcon icon="home" className="me-4" />
-              Av 14 janvier , Sfax, Tunisia
+
+              {adress}
             </p>
+
             <p>
-              <MDBIcon icon="envelope" className="me-3" />
-              don.cafe.2022@gmail.com
-            </p>
-            <p>
-              <MDBIcon icon="phone" className="me-3" /> +216 56 333 333
+              <MDBIcon icon="phone" className="me-3" /> {phone}
             </p>
           </MDBCol>
-        <MDBBtn
-          floating
-          className='m-1'
-          
-          href='https://www.facebook.com/profile.php?id=100076269880846'
-          
-        >
-          <MDBIcon fab icon='facebook-f' />
-        </MDBBtn>
+          <MDBBtn
+            floating
+            className='m-1'
 
-        <MDBBtn
-          floating
-          className='m-1'
-         
-          href='https://www.instagram.com/doncafe.resto/?igshid=YmMyMTA2M2Y%3D&fbclid=IwAR1a8ufYf5fE4DYnq2ajPKRwhZ9eUuAUvt075WQDSJugt1lWhKlf4VY_hag'
-       
-        >
-          <MDBIcon fab icon='instagram' />
-        </MDBBtn>
+            href={facebook}
 
-      
+          >
+            <MDBIcon fab icon='facebook-f' />
+          </MDBBtn>
 
-        
-      </section>
-    </MDBContainer>
-    
-    <div className='text-center p-3' style={{ backgroundColor: 'rgb(13 13 13 / 87%)', padding:'10' }}>
-      © 2023 Copyright   
-      <a className='text-yellow' href='https://logicom-dev.com/'>  LOGICOM
-      </a>
-    </div>
-  </MDBFooter>
+          <MDBBtn
+            floating
+            className='m-1'
+
+            href={instagram}
+
+          >
+            <MDBIcon fab icon='instagram' />
+          </MDBBtn>
+
+
+
+
+        </section>
+      </MDBContainer>
+
+      <div className='text-center p-3' style={{ backgroundColor: 'rgb(13 13 13 / 87%)', padding: '10' }}>
+        © 2023 Copyright
+        <a className='text-yellow' style={{ color: '#eee6cf' }} href='https://21c-digital.com/'>
+          21C'DIGITAL
+        </a>
+      </div>
+    </MDBFooter>
   );
 }

@@ -1,6 +1,6 @@
 import Api from "../Axios/Api";
 
-const CATEGORIE_API="/categorie/categorie"
+const CATEGORIE_API="/categorie"
 
 const fetchCategorie=async()=> {
 return await Api.get(CATEGORIE_API);
