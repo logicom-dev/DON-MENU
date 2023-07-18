@@ -97,10 +97,10 @@ const SearchBarSection = () => {
           ruler={false}
           style={{ border: "none", boxShadow: "none", padding: "15px 10px" }}
           barLeftColor="grey"
-          barInnerColor="#cae447"
+          barInnerColor="#7e543b"
           barRightColor="grey"
-          thumbLeftColor="#cae447"
-          thumbRightColor="#cae447"
+          thumbLeftColor="#7e543b"
+          thumbRightColor="#7e543b"
         />
         <div className="divOutput" style={{ border: "none", paddingRight: "10px", width: "200px" }}>
           <div>Prix entre </div>
