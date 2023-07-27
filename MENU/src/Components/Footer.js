@@ -30,6 +30,10 @@ export default function Footer() {
             <p>
               <MDBIcon icon="phone" className="me-3" /> {phone}
             </p>
+
+            <p>
+              <MDBIcon icon="gmail" className="me-3" /> {phone}
+            </p>
           </MDBCol>
           <MDBBtn
             floating
@@ -49,7 +53,10 @@ export default function Footer() {
 
           >
             <MDBIcon fab icon='instagram' />
+
           </MDBBtn>
+
+          
 
 
 
