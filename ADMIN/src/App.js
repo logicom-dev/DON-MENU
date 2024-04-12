@@ -1,37 +1,26 @@
-import { Routes, Route } from "react-router-dom"
-import Listarticles from './components/articles/Listarticles';
-import Insertarticle from './components/articles/Insertarticle';
-import Editarticle from './components/articles/Editarticle';
-import Listcategories from './components/categories/Listcategories';
-import Insertcategorie from './components/categories/Insertcategorie';
-import Editcategorie from './components/categories/Editcategorie';
-import Menu from "./components/Navbarre";
-import Commandes from "./components/commandes";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { AuthProvider } from "./components/auth";
-import { Login } from "./components/Login";
-import { RequireAuth } from "./components/RequireAuth";
-import { Home } from "./components/Home";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-
+import Index from "./Routes";
 
 function App() {
-  return (
-    <AuthProvider>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/categories" exact element={<RequireAuth><Listcategories /></RequireAuth>} />
-        <Route path="/Menu" exact element={<Menu />} />
-        <Route path="/articles" exact element={<RequireAuth><Listarticles /></RequireAuth>} />
-        <Route path="/articles/add" element={<Insertarticle />} />
-        <Route path="/article/edit/:id" element={<Editarticle />} />
-        <Route path="/categories/add" element={<Insertcategorie />} />
-        <Route path="/categories/edit/:id" element={<Editcategorie />} />
-        <Route path="/commande" element={<Commandes/>} />
-      </Routes>
-    </AuthProvider>
-  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const tokenExpirationTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+    const tokenStartTime = localStorage.getItem("mas_tokenStartTime");
+    const currentTime = new Date().getTime();
+
+    if (tokenStartTime && currentTime - tokenStartTime > tokenExpirationTime) {
+      localStorage.removeItem("mas_decodedToken");
+      localStorage.removeItem("mas_tokenStartTime");
+      navigate("/admin");
+    } else if (!tokenStartTime) {
+      localStorage.setItem("mas_tokenStartTime", currentTime);
+    }
+  }, [navigate]);
+
+  return <Index />;
 }
+
 export default App;

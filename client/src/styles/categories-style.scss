@@ -1,0 +1,15 @@
+
+    .display-menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      .button-primary {
+        color: #fff !important;
+        background-color: #e4ce4fee !important;
+        border-radius: 10px  !important;
+        height: 35px  !important;
+        margin-left: 20px  !important;
+        font-size: 15px  !important;
+      }
+    }

@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.042a6c70.css","mappings":"AAAA,SACI,wBAAyB,CAC1B,UAGC,qBAAyB","sources":["styles/articles-styles.scss"],"sourcesContent":[".row-odd {\n    background-color: #f0f0f0; /* Alternate color for odd rows */\n  }\n  \n  .row-even {\n    background-color: #ffffff; /* Default color for even rows */\n  }\n\n\n\n  \n"],"names":[],"sourceRoot":""}
